@@ -1,18 +1,16 @@
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-import time
+from pages.login_page import LoginPage
 
 
 def test_login():
     driver = webdriver.Chrome()
+    driver.get("https://saucedemo.com")
 
-    driver.get("https://www.saucedemo.com/")
+    login = LoginPage(driver)
 
-    driver.find_element(By.ID, "user-name").send_keys("standard_user")
-
-    driver.find_element(By.ID, "password").send_keys("secret_sauce")
-
-    driver.find_element(By.ID, "login-button").click()
+    login.enter_username("standard_user")
+    login.enter_password("secret_sauce")
+    login.click_login()
 
     assert "inventory" in driver.current_url
 
