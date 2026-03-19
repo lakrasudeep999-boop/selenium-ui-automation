@@ -6,7 +6,7 @@ class InventoryPage:
 
     #locators
     inventory_container = (By.ID,"inventory_container")
-    first_add_to_cart_button =(By.ID, "shopping_cart_container")
+    first_add_to_cart_button =(By.ID, "add-to-cart-sauce-labs-backpack")
 
     #methods
     def is_inventory_page_loaded(self):
