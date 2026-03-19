@@ -1,9 +1,7 @@
-from selenium import webdriver
 from pages.login_page import LoginPage
 
 
-def test_login():
-    driver = webdriver.Chrome()
+def test_login(driver):
     driver.get("https://saucedemo.com")
 
     login = LoginPage(driver)
@@ -13,5 +11,3 @@ def test_login():
     login.click_login()
 
     assert "inventory" in driver.current_url
-
-    driver.quit()
