@@ -33,10 +33,8 @@ class CartPage:
 
     def checkout_page(self):
         wait = WebDriverWait(self.driver, 10)
-
         element = wait.until(EC.presence_of_element_located(self.checkout_btn))
         self.driver.execute_script("arguments[0].click();", element)
-
-        wait.until(lambda d: "checkout" in d.current_url)
+        wait.until(lambda d: "checkout-step-one" in d.current_url)
 
 

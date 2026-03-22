@@ -1,3 +1,4 @@
+from pages.checkout_page import CheckoutPage
 from pages.login_page import LoginPage
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
@@ -10,6 +11,7 @@ def test_add_product_to_cart(driver):
   login = LoginPage(driver)
   inventory = InventoryPage(driver)
   cart = CartPage(driver)
+  checkout = CheckoutPage(driver)
 
   #login
   login.enter_username("standard_user")
@@ -31,4 +33,17 @@ def test_add_product_to_cart(driver):
   #proceed to checkout
   cart.checkout_page()
 
+  checkout.wait_for_checkout_page_ready()
+
+  #fill form
+  checkout.fillout_form("sudeep","lakra",560043)
+
+  #continue
+  checkout.click_continue_and_wait()
+
+
+  print(driver.current_url)
+
+  #validation
+  assert checkout.is_checkout_overview_page()
 
