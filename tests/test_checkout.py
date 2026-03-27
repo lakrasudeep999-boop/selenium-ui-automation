@@ -2,7 +2,7 @@ from pages.checkout_page import CheckoutPage
 from pages.login_page import LoginPage
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
-
+from pages.checkout_overview_page import CheckoutOverViewPage
 
 def test_add_product_to_cart(driver):
 
@@ -12,6 +12,7 @@ def test_add_product_to_cart(driver):
   inventory = InventoryPage(driver)
   cart = CartPage(driver)
   checkout = CheckoutPage(driver)
+  overview = CheckoutOverViewPage(driver)
 
   #login
   login.enter_username("standard_user")
@@ -46,4 +47,15 @@ def test_add_product_to_cart(driver):
 
   #validation
   assert checkout.is_checkout_overview_page()
+
+  overview.wait_for_overview_page()
+
+  #validating checkout summary
+
+  print("Product:", overview.get_product_name())
+  print("Price:", overview.get_product_price())
+
+  assert overview.get_product_name() != ""
+  assert overview.get_product_price() > 0
+  assert overview.is_total_correct()
 
