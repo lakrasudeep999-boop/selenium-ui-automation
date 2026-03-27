@@ -59,3 +59,13 @@ def test_add_product_to_cart(driver):
   assert overview.get_product_price() > 0
   assert overview.is_total_correct()
 
+  #finish btn
+  overview.click_finish()
+
+  #wait for success page
+  overview.wait_for_success_page()
+
+  #validate success page
+  assert overview.is_order_success()
+
+
