@@ -2,10 +2,12 @@ from pages.checkout_page import CheckoutPage
 from pages.cart_page import CartPage
 from pages.inventory_page import InventoryPage
 from pages.login_page import LoginPage
+import logging
+from config import BASE_URL,USERNAME,PASSWORD
 
 
 def test_checkout_empty_first_name(driver):
-    driver.get("https://saucedemo.com")
+    driver.get(BASE_URL)
 
     login = LoginPage(driver)
     inventory = InventoryPage(driver)
@@ -13,9 +15,7 @@ def test_checkout_empty_first_name(driver):
     checkout = CheckoutPage(driver)
 
     #login
-    login.enter_username("standard_user")
-    login.enter_password("secret_sauce")
-    login.click_login()
+    login.login(USERNAME,PASSWORD)
 
     inventory.wait_for_inventory_page()
 
@@ -39,4 +39,6 @@ def test_checkout_empty_first_name(driver):
     error = checkout.get_error_message()
 
     assert "ERROR:" in error
+
+    logging.info("First name empty")
 
