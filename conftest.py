@@ -1,5 +1,6 @@
 import pytest
 import logging
+import time
 
 from pages.inventory_page import InventoryPage
 from pages.login_page import LoginPage
@@ -69,5 +70,20 @@ def checkout_overview_page(checkout_page):
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item,call):
+    outcome = yield
+    report = outcome.get_result()
+
+    #execute only after test call
+    if report.when == 'call' and report.failed:
+
+        driver = item.funcargs.get("driver")
+
+        if driver:
+            file_name = f"screenshots/failure_{int(time.time())}.png"
+            driver.save_screenshot(file_name)
 
 

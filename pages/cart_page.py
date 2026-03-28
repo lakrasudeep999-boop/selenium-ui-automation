@@ -29,7 +29,13 @@ class CartPage:
         return "cart" in self.driver.current_url
 
     def is_product_added(self):
-        return len(self.driver.find_elements(*self.cart_item))>0
+        wait = WebDriverWait(self.driver, 10)
+
+        try:
+            wait.until(lambda d: len(d.find_elements(*self.cart_item))>0)
+            return self.driver.find_element(*self.cart_item).is_displayed()
+        except:
+            return False
 
     def checkout_page(self):
         wait = WebDriverWait(self.driver, 10)
